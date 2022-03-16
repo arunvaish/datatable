@@ -27,4 +27,24 @@ public interface MasterRepository extends JpaRepository<Master, Integer> {
 
 	@Query(value = "SELECT DISTINCT m.code FROM Master m , Clinical c WHERE c.mid5 = m.id AND c.mid5 IN (SELECT id FROM Master WHERE code like %:key%) ORDER BY m.code ASC")
 	public List<String> searchByMid5(@Param("key") String value);
+	
+	/**
+	 * 
+	 * @Description Following methods to get data from ES
+	 */
+	
+	@Query(value = "SELECT DISTINCT m.code FROM Master m , Clinical c WHERE c.mid1 = m.id ORDER BY m.code ASC")
+	public List<String> getMasterByMid1();
+	
+	@Query(value = "SELECT DISTINCT m.code FROM Master m , Clinical c WHERE c.mid2 = m.id ORDER BY m.code ASC")
+	public List<String> getMasterByMid2();
+	
+	@Query(value = "SELECT DISTINCT m.code FROM Master m , Clinical c WHERE c.mid3 = m.id ORDER BY m.code ASC")
+	public List<String> getMasterByMid3();
+	
+	@Query(value = "SELECT DISTINCT m.code FROM Master m , Clinical c WHERE c.mid4 = m.id ORDER BY m.code ASC")
+	public List<String> getMasterByMid4();
+	
+	@Query(value = "SELECT DISTINCT m.code FROM Master m , Clinical c WHERE c.mid5 = m.id ORDER BY m.code ASC")
+	public List<String> getMasterByMid5();
 }

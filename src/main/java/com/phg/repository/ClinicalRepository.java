@@ -63,4 +63,49 @@ public interface ClinicalRepository extends JpaRepository<Clinical, Integer> {
 	public List<Clinical> getById(int id);
 
 	public DataManager getRecords(DataTableFilter filter);
+	
+	@Query(value = "SELECT DISTINCT c.clinic1 FROM Clinical c ORDER BY c.clinic1 ASC")
+	public List<String> getByClinic1();
+	
+	@Query(value = "SELECT DISTINCT c.clinic2 FROM Clinical c ORDER BY c.clinic2 ASC")
+	public List<String> getByClinic2();
+	
+	@Query(value = "SELECT DISTINCT c.clinic3 FROM Clinical c ORDER BY c.clinic3 ASC")
+	public List<String> getByClinic3();
+	
+	@Query(value = "SELECT DISTINCT c.clinic4 FROM Clinical c ORDER BY c.clinic4 ASC")
+	public List<String> getByClinic4();
+	
+	@Query(value = "SELECT DISTINCT c.clinic5 FROM Clinical c ORDER BY c.clinic5 ASC")
+	public List<String> getByClinic5();
+	
+	@Query(value = "SELECT DISTINCT c.clinic6 FROM Clinical c ORDER BY c.clinic6 ASC")
+	public List<String> getByClinic6();
+	
+	@Query(value = "SELECT DISTINCT c.clinic7 FROM Clinical c ORDER BY c.clinic7 ASC")
+	public List<String> getByClinic7();
+	
+	@Query(value = "SELECT DISTINCT c.clinic8 FROM Clinical c ORDER BY c.clinic8 ASC")
+	public List<String> getByClinic8();
+	
+	@Query(value = "SELECT DISTINCT c.clinic9 FROM Clinical c ORDER BY c.clinic9 ASC")
+	public List<String> getByClinic9();
+	
+	@Query(value = "SELECT DISTINCT c.clinic10 FROM Clinical c ORDER BY c.clinic10 ASC")
+	public List<String> getByClinic10();
+	
+	@Query(value = "SELECT DISTINCT c.clinic11 FROM Clinical c ORDER BY c.clinic11 ASC")
+	public List<String> getByClinic11();
+	
+	@Query(value = "SELECT DISTINCT c.clinic12 FROM Clinical c ORDER BY c.clinic12 ASC")
+	public List<String> getByClinic12();
+	
+	@Query(value = "SELECT DISTINCT c.clinic13 FROM Clinical c ORDER BY c.clinic13 ASC")
+	public List<String> getByClinic13();
+	
+	@Query(value = "SELECT DISTINCT c.clinic14 FROM Clinical c ORDER BY c.clinic14 ASC")
+	public List<String> getByClinic14();
+	
+	@Query(value = "SELECT DISTINCT c.clinic15 FROM Clinical c ORDER BY c.clinic15 ASC")
+	public List<String> getByClinic15();
 }

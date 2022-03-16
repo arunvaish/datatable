@@ -53,4 +53,24 @@ public class MasterService {
 	public List<String> searchByMid5(String code) {
 		return repository.searchByMid5(code);
 	}
+	
+	public List<String> getAllByMid1() {
+		return repository.getMasterByMid1();
+	}
+	
+	public List<String> getAllByMid2() {
+		return repository.getMasterByMid2();
+	}
+	
+	public List<String> getAllByMid3() {
+		return repository.getMasterByMid3();
+	}
+	
+	public List<String> getAllByMid4() {
+		return repository.getMasterByMid4();
+	}
+	
+	public List<String> getAllByMid5() {
+		return repository.getMasterByMid5();
+	}
 }

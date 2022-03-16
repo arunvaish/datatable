@@ -2,6 +2,7 @@ package com.phg.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.phg.helper.Constent;
+import com.phg.mode.es.Metadata;
 import com.phg.model.DataManager;
 import com.phg.model.DataTableFilter;
 import com.phg.model.Master;
 import com.phg.service.ClinicalService;
 import com.phg.service.MasterService;
+import com.phg.service.es.MetaSearchService;
 
 @Controller
 public class PHGController {
@@ -25,10 +29,13 @@ public class PHGController {
 	
 	private MasterService masterService;
 	
+	private MetaSearchService metaSearchService;
+	
 	@Autowired
-	public PHGController(ClinicalService clinicalService , MasterService masterService) {
+	public PHGController(ClinicalService clinicalService , MasterService masterService, MetaSearchService metaSearchService) {
 		this.clinicalService = clinicalService;
 		this.masterService = masterService;
+		this.metaSearchService = metaSearchService;
 	} 
 	
 	@RequestMapping(value = "/api/search/{col}/{key}" , method = RequestMethod.GET) 
@@ -56,85 +63,227 @@ public class PHGController {
 	
 	private List<String> autoFillData(int col, String key) {
 		List<String> result = new ArrayList<String>();
+		Metadata fetch = null;
 		switch (col) {
 		case 0:
-			result = masterService.searchByMid1(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_MASTER_1);
+			if(fetch != null) {
+				result = fetch.getMaster1().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = masterService.searchByMid1(key);
+			}
 			break;
 		
 		case 1:
-			result = masterService.searchByMid2(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_MASTER_2);
+			System.out.println(fetch);
+			if(fetch != null) {
+				result = fetch.getMaster2().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = masterService.searchByMid2(key);
+			}
 			break;
 			
 		case 2:
-			result = masterService.searchByMid3(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_MASTER_3);
+			if(fetch != null) {
+				result = fetch.getMaster3().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = masterService.searchByMid3(key);
+			}
 			break;
 			
 		case 3:
-			result = masterService.searchByMid4(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_MASTER_4);
+			if(fetch != null) {
+				result = fetch.getMaster4().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = masterService.searchByMid4(key);
+			}
 			break;
 			
 		case 4:
-			result = masterService.searchByMid5(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_MASTER_5);
+			if(fetch != null) {
+				result = fetch.getMaster5().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = masterService.searchByMid5(key);
+			}
 			break;
 			
 		case 5:
-			result = clinicalService.searchByClinic1(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_1);
+			if(fetch != null) {
+				result = fetch.getClinical1().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic1(key);
+			}
 			break;
 			
 		case 6:
-			result = clinicalService.searchByClinic2(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_2);
+			if(fetch != null) {
+				result = fetch.getClinical2().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic2(key);
+			}
 			break;
 			
 		case 7:
-			result = clinicalService.searchByClinic3(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_3);
+			if(fetch != null) {
+				result = fetch.getClinical3().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic3(key);
+			}
 			break;
 			
 		case 8:
-			result = clinicalService.searchByClinic14(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_4);
+			if(fetch != null) {
+				result = fetch.getClinical4().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic4(key);
+			}
 			break;
 			
 		case 9:
-			result = clinicalService.searchByClinic15(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_5);
+			if(fetch != null) {
+				result = fetch.getClinical5().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic5(key);
+			}
 			break;
 			
 		case 10:
-			result = clinicalService.searchByClinic6(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_6);
+			if(fetch != null) {
+				result = fetch.getClinical6().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic6(key);
+			}
 			break;
 			
 		case 11:
-			result = clinicalService.searchByClinic7(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_7);
+			if(fetch != null) {
+				result = fetch.getClinical7().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic7(key);
+			}
 			break;
 			
 		case 12:
-			result = clinicalService.searchByClinic8(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_8);
+			if(fetch != null) {
+				result = fetch.getClinical8().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic8(key);
+			}
 			break;
 			
 		case 13:
-			result = clinicalService.searchByClinic9(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_9);
+			if(fetch != null) {
+				result = fetch.getClinical9().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic9(key);
+			}
 			break;
 			
 		case 14:
-			result = clinicalService.searchByClinic10(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_10);
+			if(fetch != null) {
+				result = fetch.getClinical10().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic10(key);
+			}
 			break;
 			
 		case 15:
-			result = clinicalService.searchByClinic11(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_11);
+			if(fetch != null) {
+				result = fetch.getClinical11().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic11(key);
+			}
 			break;
 			
 		case 16:
-			result = clinicalService.searchByClinic12(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_12);
+			if(fetch != null) {
+				result = fetch.getClinical12().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic12(key);
+			}
 			break;
 			
 		case 17:
-			result = clinicalService.searchByClinic13(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_13);
+			if(fetch != null) {
+				result = fetch.getClinical13().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic13(key);
+			}
 			break;
 			
 		case 18:
-			result = clinicalService.searchByClinic14(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_14);
+			if(fetch != null) {
+				result = fetch.getClinical14().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic14(key);
+			}
 			break;
 			
 		case 19:
-			result = clinicalService.searchByClinic15(key);
+			fetch = metaSearchService.fetch(Constent.ES_INDEX_CLINIC_15);
+			if(fetch != null) {
+				result = fetch.getClinical15().stream()
+					      .filter(str -> str.toLowerCase().trim().contains(key.toLowerCase()))
+					      .collect(Collectors.toList());
+			} else {
+				result = clinicalService.searchByClinic15(key);
+			}
 			break;
 
 		default:
